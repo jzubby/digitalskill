@@ -1,0 +1,51 @@
+{
+  "webuyanycar.com": {
+    "acceptCookies": "button[id='onetrust-accept-btn-handler']",
+    "homepage": {
+      "registrationInput": "input[name='registrationNumber']",
+      "millageInput": "input[name='Mileage']",
+      "submitButton": "button[type='submit'][class='cta primary']"
+    },
+    "yourDetails": {
+      "emailInput": "input[id='EmailAddress']",
+      "postcode": "input[id='Postcode']",
+      "telephone": "input[id='TelephoneNumber']",
+      "submitButton": "input[id='advance-btn']"
+
+    },
+    "resultPage": {
+       "variant_reg": "div[class='VRM-module__vrm-hdeF VRM-module__small-X7lq VRM-module__front-BTQb']",
+      "make": "h1[class='VehicleHeader-module__model-zw5I']",
+      "model": "h1[class='VehicleHeader-module__model-zw5I']",
+      "year": "ol[class='VehicleHeader-module__details-hnKz'] li"
+
+    }
+
+  },
+  "motorway.co.uk": {
+    "homepage": {
+      "registrationInput": "input[name='vrm-input'][id='vrm-input']",
+      "submitButton": "button[type='submit'][data-cy='valueButton']",
+      "validationElement": "h1[data-cy='vehicleMakeAndModel']"
+
+    },
+    "confirmMillage": {
+      "millageInput": "input[id='mileage-input']",
+      "millageConfirmButton": "button[data-cy='continueButton']"
+    },
+    "resultPage": {
+      "variant_reg": "div[class='VRM-module__vrm-hdeF VRM-module__regular-RiIR VRM-module__front-BTQb']",
+      "make": "h1[data-cy='vehicleMakeAndModel']",
+      "model": "h1[data-cy='vehicleMakeAndModel']",
+      "year": "ul[data-cy='vehicleSpecifics'] li"
+
+    },
+     "yourDetails": {
+      "emailInput": "input[id='email-input']",
+      "fullname": "input[id='name-input']",
+      "telephone": "input[id='phone-input']",
+      "submitButton": "input[data-e2ename='contact submit']"
+    },
+    "valuationDiscovery": {"price": "h2.MotorwayValuationPage__offer-xgNB"}
+  }
+}

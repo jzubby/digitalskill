@@ -1,0 +1,72 @@
+version: "3"
+services:
+  chrome:
+    image: selenium/node-chrome:4.27.0-20241204
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_ENABLE_TRACING=false
+    networks:
+      - digital_skill_private_network
+
+  edge:
+    image: selenium/node-edge:4.27.0-20241204
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_ENABLE_TRACING=false
+    networks:
+      - digital_skill_private_network
+
+  firefox:
+    image: selenium/node-firefox:4.27.0-20241204
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_ENABLE_TRACING=false
+    networks:
+      - digital_skill_private_network
+
+  selenium-hub:
+    image: selenium/hub:4.27.0-20241204
+    container_name: selenium-hub
+    environment:
+      - SE_ENABLE_TRACING=false
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+
+  digital_skills_test_framwork:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: digital_skills:01
+    working_dir: /digital_skill
+    depends_on:
+      - chrome
+    networks:
+      - digital_skill_private_network
+    environment:
+      - SELENIUM_HOST=http://selenium-hub:4444/wd/hub
+    volumes:
+      - ./:/digital_skill
+      - ./logs:/digital_skill/logs
+    command: sh -c "pytest  --remote=True test_compare_car_quotes.py"
+
+
+
+networks:
+  digital_skill_private_network:
