@@ -34,10 +34,10 @@
  Test workflow:
  
 The test framework is designed with the following in mind:
- 1. Centralised object identification repository, this contains all the selectors per vendoe required to build the test that simulates the specified workflow
+ 1. Centralised object identification repository, this contains all the selenium web drivers selectors per vehicle valuation vendor required to build the test that simulates the specified workflow
  2. To add a new vendor, simple introspect the vendors workflow and update the required selector in the repository, if the signatures changes (which is bound to happen), then we have only one location to change 
- 3. Uses page object model that abstracts each vendor workflow, allowing addition, removal, update and easy test orchestration strategy.
- 4. More input and output files can be added to discover move Reg number 
- 5. docker-compose file for CI/CD integration (this is a review and throw away project , so did not implement certain elements for CI/CD integration, Healthcheck, Health Status) 
+ 3. Uses page object model that abstracts each vendor workflow, allowing addition, removal, update and easy test orchestration strategy., Test logic is encapsulated in class providing all routines for the particular vendor
+ 4. More input and output files can be added to discover move Reg number, Test seaches through directory/relative path/full path to discover input and output file
+ 5. docker-compose file for CI/CD integration (this is a review and throw away project , so did not implement certain elements for CI/CD integration, Healthcheck, Health Status, E.T.C) 
 
 Enjoy it (need more doc)
