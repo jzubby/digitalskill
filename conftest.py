@@ -24,8 +24,6 @@ def driver(remote):
     """
     Set up and tear down the WebDriver for the test.
     """
-    # Initialize the WebDriver
-
     if remote:
         remote_selenium_fqdn = os.environ.get("SELENIUM_HOST", "http://selenium-hub:4444/wd/hub")
         options = webdriver.ChromeOptions()
@@ -37,6 +35,5 @@ def driver(remote):
         driver = webdriver.Remote(remote_selenium_fqdn, options=options)
     else:
         driver = webdriver.Chrome() # use default options
-    # driver.implicitly_wait(10)  # Wait up to 10 seconds for elements to appear
     yield driver
     driver.quit()

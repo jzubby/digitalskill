@@ -56,7 +56,7 @@ class BaseSite(object):
 
 class MotorWaySite(BaseSite):
     """
-    class encapsulating logic for webuyanycar.com
+    class encapsulating logic for MotorWaySite
     """
 
     def __init__(self, driver, reg_number, global_wait_time_out=100):
@@ -68,16 +68,16 @@ class MotorWaySite(BaseSite):
         self.motorway_site_locators = self.site_locators.get_element_locator(self.site_key)
 
 
-    def navigate_to_site(self):
+    def navigate_to_site(self) -> str:
         sub_button = self.motorway_site_locators.get("homepage").get("submitButton")
         self.driver.get("https://" + self.site_key)
-        # we need to wait to dismiss the cookie warning
+        # we need to wait until page load completes
         WebDriverWait(self.driver, self.global_wait_time_out).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, sub_button)))
         return self.driver.title
 
 
-    def submit_reg_info_on_hope_page(self):
+    def submit_reg_info_on_hope_page(self) -> str:
         """
         homepage resources
         :return:
@@ -93,7 +93,7 @@ class MotorWaySite(BaseSite):
         validation_ele_text = self.driver.find_element(By.CSS_SELECTOR, val_ele).text
         return validation_ele_text
 
-    def extract_vehicle_details(self):
+    def extract_vehicle_details(self) -> dict[str, str]:
         """
         extract the details we want
         :return:
@@ -117,7 +117,7 @@ class MotorWaySite(BaseSite):
 
     def confirm_mileage_and_add_details(self):
         """
-        confirm the mileage and get the valuation price
+        confirm the mileage and get the valuation details
         """
         m_page_locators = self.motorway_site_locators.get("confirmMillage")
         mileage_input = m_page_locators["millageInput"]
@@ -132,7 +132,7 @@ class MotorWaySite(BaseSite):
         email_input = d_page_locators["emailInput"]
         telephone_input = d_page_locators["telephone"]
         submit_button = d_page_locators["submitButton"]
-        # wait until page loads
+        # wait until page load completes
         WebDriverWait(self.driver, self.global_wait_time_out).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, submit_button)))
         self.driver.find_element(By.CSS_SELECTOR, fullname_button).send_keys(self.generate_random_name())
@@ -140,7 +140,7 @@ class MotorWaySite(BaseSite):
         self.driver.find_element(By.CSS_SELECTOR, telephone_input).send_keys(self.get_telephone_number())
         self.driver.find_element(By.CSS_SELECTOR, submit_button).click()
 
-    def get_valuation_price(self):
+    def get_valuation_price(self) -> str:
         """
         Get the valuation
         :return:

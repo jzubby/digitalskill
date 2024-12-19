@@ -32,6 +32,8 @@ class TestVehicleValuation:
         Test MotorWaySite valuation site
         :param driver: selenium driver
         :param global_wait_time_out: given timeout wait time
+        :param car_reg: extracted car reg number
+        :param output_validation_dict: extracted outfile dict containing the corresponding validation entries for car_reg
         """
         expected_page_title = "Sell My Car | Fast, Free, Get Your Highest Offer"
         motor_way_page_obj = MotorWaySite(driver=driver, reg_number=car_reg, global_wait_time_out=global_wait_time_out)
@@ -45,7 +47,7 @@ class TestVehicleValuation:
         assert vehicle_model is not None, "\n Vehicle Registration submission may have not been successful"
 
         vehicle_details = motor_way_page_obj.extract_vehicle_details()
-        # find and print all mismatched attribute and fail (if any)
+        # find and print all mismatched attribute and fail (if any fails)
         # perform case-insensitive compare
         mismatch = 0
         for extracted_vehicle_attr, extracted_vehicle_value in vehicle_details.items():

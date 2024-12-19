@@ -94,14 +94,13 @@ class ExtractUKRegNumberFromGivenTxtFile():
             print(f"An error occurred: {output_error}")
         return output_data
 
-    def extract_uk_reg_number(self) -> Tuple[List[str], List[Dict[str, str]]]:
+    def extract_uk_reg_number(self) -> Tuple[List[str], List[Dict[str, str]]] | None:
         """
         extract the reg, read the output file into a dict and optionally check if the extracted reg and reg(s) found
          in output file are all present
         :return:
         """
-        unique_input_reg_number = None
-        output_content_dict = None
+
         contents = self.read_text_file(self.input_text_path)
         if contents:
             reg_no = re.findall(self.pattern_matcher, contents)
@@ -117,4 +116,5 @@ class ExtractUKRegNumberFromGivenTxtFile():
                 # if there are differences in the vehicle registration found in input and out files , what do we do, for now we just warn and ignore check later in test
                 if diff_reg:
                     print(f"Found differences between the extracted Registration number from input file and output file {diff_reg}")
-        return list(unique_input_reg_number), output_content_dict
+            return list(unique_input_reg_number), output_content_dict
+        return None
