@@ -1,7 +1,9 @@
 import json
 import os
-
+import logging
 REPO_BASE = os.path.dirname(os.path.realpath(__file__))
+
+LOGGER = logging.getLogger(__name__)
 
 class RegPageLocators(object):
     """A class for main page locators. All main page locators should come here"""
@@ -39,5 +41,5 @@ class RegPageLocators(object):
                     return self.config[site][page]
                 return self.config[site]
             except KeyError as k_error:
-                print(f"page does not exist in the inventory, {k_error}")
+                LOGGER.error(f"page does not exist in the inventory, {k_error}")
         return None

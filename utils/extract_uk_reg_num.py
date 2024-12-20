@@ -2,8 +2,10 @@ from typing import Tuple, List,Dict
 import re
 import os
 import csv
+import logging
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
+LOGGER = logging.getLogger(__name__)
 
 class ExtractUKRegNumberFromGivenTxtFile():
     """
@@ -58,9 +60,9 @@ class ExtractUKRegNumberFromGivenTxtFile():
                  else:
                      raise FileNotFoundError
         except FileNotFoundError:
-            print(f"Files does not exist, check the given path ===> '{file_path}'.")
+            LOGGER.debug(f"Files does not exist, check the given path ===> '{file_path}'.")
         except Exception as file_read_error:
-            print(f"Unable to read file error occurred: {file_read_error}")
+            LOGGER.debug(f"Unable to read file error occurred: {file_read_error}")
         return content
 
     @staticmethod
@@ -89,9 +91,9 @@ class ExtractUKRegNumberFromGivenTxtFile():
                 else:
                     raise FileNotFoundError
         except FileNotFoundError as output_error:
-            print(f"File does not exist, check the given path ===> '{output_file_path}' not found. Error: {output_error}")
+            LOGGER.debug(f"File does not exist, check the given path ===> '{output_file_path}' not found. Error: {output_error}")
         except Exception as output_error:
-            print(f"An error occurred: {output_error}")
+            LOGGER.debug(f"An error occurred: {output_error}")
         return output_data
 
     def extract_uk_reg_number(self) -> Tuple[List[str], List[Dict[str, str]]] | None:
@@ -115,6 +117,6 @@ class ExtractUKRegNumberFromGivenTxtFile():
                 diff_reg = striped_unique_input_reg_number.symmetric_difference(unique_output_reg_number)
                 # if there are differences in the vehicle registration found in input and out files , what do we do, for now we just warn and ignore check later in test
                 if diff_reg:
-                    print(f"Found differences between the extracted Registration number from input file and output file {diff_reg}")
+                    LOGGER.info(f"Found differences between the extracted Registration number from input file and output file {diff_reg}")
             return list(unique_input_reg_number), output_content_dict
         return None

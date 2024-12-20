@@ -1,7 +1,9 @@
 import os
 import pytest
+import logging
 from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+LOGGER = logging.getLogger(__name__)
 
 def pytest_addoption(parser):
     """
@@ -33,7 +35,9 @@ def driver(remote):
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--enable-gpu")
         driver = webdriver.Remote(remote_selenium_fqdn, options=options)
+        LOGGER.info("Running on remote mode, using chrome browser")
     else:
         driver = webdriver.Chrome() # use default options
+        LOGGER.info("Running on non remote mode, using chrome browser")
     yield driver
     driver.quit()
